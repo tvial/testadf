@@ -12,13 +12,21 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ubuntu",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "Aggregate1"
 				}
 			],
-			"script": "\n\nsource(output(\n\t\tversion as float,\n\t\tcodename as string,\n\t\tseries as string,\n\t\tcreated as date 'yyyy-MM-dd',\n\t\trelease as date 'yyyy-MM-dd',\n\t\teol as date 'yyyy-MM-dd'\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> source1\nsource1 aggregate({} = ERROR_FUNCTION(''),\n\t\teach(match(type == 'string'), concat($$, '_total') = count($$))) ~> Aggregate1"
+			"script": "\n\nsource(output(\n\t\tversion as float,\n\t\tcodename as string,\n\t\tseries as string,\n\t\tcreated as date 'yyyy-MM-dd',\n\t\trelease as date 'yyyy-MM-dd',\n\t\teol as date 'yyyy-MM-dd'\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> source1\nsource1 aggregate({} = ERROR_FUNCTION(''),\n\t\teach(match(type == 'string'), concat($$, '_total') = count($$))) ~> Aggregate1\nAggregate1 sink(input(\n\t\tversion as string,\n\t\tcodename as string,\n\t\tseries as string,\n\t\tcreated as string,\n\t\trelease as string,\n\t\teol as string,\n\t\t{eol-server} as string,\n\t\t{eol-esm} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> sink1"
 		}
 	}
 }
