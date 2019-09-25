@@ -23,6 +23,12 @@
 				}
 			}
 		],
+		"variables": {
+			"toto": {
+				"type": "String",
+				"defaultValue": "123"
+			}
+		},
 		"annotations": []
 	}
 }
