@@ -1,0 +1,48 @@
+{
+	"name": "debian",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "input123",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "debian.csv",
+				"container": "input"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "version",
+				"type": "String"
+			},
+			{
+				"name": "codename",
+				"type": "String"
+			},
+			{
+				"name": "series",
+				"type": "String"
+			},
+			{
+				"name": "created",
+				"type": "String"
+			},
+			{
+				"name": "release",
+				"type": "String"
+			},
+			{
+				"name": "eol",
+				"type": "String"
+			}
+		]
+	}
+}
